@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
+<body ng-app="MyApp">
+    <div ng-controller="MyController as ctrl">
+       <div ng-style="{background: ctrl.bodyColor[ctrl.userObjectSelection]}">
+           <h1>Pick a theme</h1>
+            <div ng-repeat="t in ctrl.choices">
+                <input type="radio"
+                       name="color2"
+                       ng-value="$index"
+                       ng-model="ctrl.userObjectSelection"> {{t}}
+            </div>
+
+            <div ng-style="{background: ctrl.div1Color[ctrl.userObjectSelection],color:ctrl.fontColor[ctrl.userObjectSelection]}">
+                <h2>Hello! I'm DIV 1</h2>
+            </div>
+            <div ng-style="{background: ctrl.div2Color[ctrl.userObjectSelection],color:ctrl.fontColor[ctrl.userObjectSelection]}">
+                <h2>Hello! I'm DIV 2</h2>
+            </div>
+       </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>My Files</h2>
+                <input type="checkbox" ng-model="ctrl.collaps"> Hide All
+                <ul>
+                    <div ng-repeat="(key,value) in ctrl.categories">
+                        <li><span ng-class="ctrl.showFolder()"></span> {{key}}</li>
+                        <ul>
+                            <div ng-if="!ctrl.collaps" ng-repeat="v in value">
+                                <li><span>{{v}}</span></li>
+                            </div>
+                        </ul>
+                    </div>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <h2>Add Files</h2>
+                <input type="text" ng-model="ctrl.text" placeholder="Item Name">
+                <button ng-click="ctrl.addContent(ctrl.idx, ctrl.text)">Add Item</button>
+                <ul>
+                    <div ng-repeat="(key,value) in ctrl.categories">
+                        <input type="radio" ng-value="$index" ng-model="ctrl.idx">{{key}}</input>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
